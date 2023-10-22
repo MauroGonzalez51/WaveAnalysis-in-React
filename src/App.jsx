@@ -1,9 +1,26 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 import JSZip from "jszip";
 import Footer from "./Footer";
+import Images from "./Images";
 
 const NGROK_URL = "http://c740-34-139-31-84.ngrok.io";
 
+const Container = styled.div`
+    margin: 2rem 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
+/**
+ * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
+ * It includes two useEffect hooks that handle the logic for uploading the audio file, sending it to a server for analysis,
+ * and processing the resulting zip file to extract and display the image URLs.
+ *
+ * @returns {JSX.Element} The rendered component.
+ */
 function App() {
     const [audioFile, setAudioFile] = useState(null);
     const [zipFile, setZipFile] = useState(null);
@@ -84,15 +101,10 @@ function App() {
     }, [zipFile]);
 
     return (
-        <>
-            <div>
-                {imageUrls.map((imageUrl, index) => (
-                    <img key={index} src={imageUrl} alt={`Image ${index}`} />
-                ))}
-            </div>
-
+        <Container>
+            <Images imageUrls={imageUrls} />
             <Footer onChange={onChange} />
-        </>
+        </Container>
     );
 }
 
