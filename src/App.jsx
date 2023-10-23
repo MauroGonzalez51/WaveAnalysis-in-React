@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import JSZip from "jszip";
-import Footer from "./Footer";
 import Images from "./Images";
+import UploadFiles from "./UploadFiles";
 
-const NGROK_URL = "http://5551-34-80-75-158.ngrok.io";
+const NGROK_URL = "http://7cf2-35-231-32-56.ngrok.io";
 
 const Container = styled.div`
     margin: 2rem 3rem;
@@ -13,6 +13,12 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     gap: 1rem;
+`;
+
+const Text = styled.span`
+    font-size: ${(props) => props.$fontSize || "1rem"};
+    color: ${(props) => props.$color || "#000000"};
+    font-style: ${(props) => props.$fontStyle || "normal"};
 `;
 
 /**
@@ -104,7 +110,8 @@ function App() {
     return (
         <Container>
             {imageUrls && <Images imageUrls={imageUrls} />}
-            <Footer handleOnChange={handleOnChange} /> 
+            <UploadFiles handleOnChange={handleOnChange} />
+            {audioFile && <Text $fontStyle="italic" $color="#e34f42">Selected File: {audioFile.name}</Text>}
         </Container>
     );
 }
