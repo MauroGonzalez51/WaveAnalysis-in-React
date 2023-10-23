@@ -12,14 +12,31 @@ const Container = styled.div`
 const Img = styled.img`
     width: 100%;
     height: auto;
-    border: 1px solid #000;
+    border: 1px solid #c3c3c3;
 `;
 
 function Images({ imageUrls }) {
+    const handleDownload = (imageUrl) => {
+        const a = document.createElement("a");
+        a.style.display = "none";
+        document.body.appendChild(a);
+
+        a.href = imageUrl;
+        a.download = "image.png";
+
+        a.click();
+        document.body.removeChild(a);
+    };
+
     return (
         <Container>
             {imageUrls.map((imageUrl, index) => (
-                <Img key={index} src={imageUrl} alt={`Image ${index}`} />
+                <Img
+                    key={index}
+                    src={imageUrl}
+                    alt={`Image ${index}`}
+                    onClick={() => handleDownload(imageUrl)}
+                />
             ))}
         </Container>
     );

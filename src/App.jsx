@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Bars } from "react-loader-spinner";
 import styled from "styled-components";
 import JSZip from "jszip";
 import Images from "./Images";
@@ -33,9 +34,13 @@ function App() {
     const [zipFile, setZipFile] = useState(null);
     const [imageUrls, setImageUrls] = useState([]);
 
+    const [isLoading, setLoading] = useState(false);
+
     const handleOnChange = (file) => setAudioFile(file);
 
     useEffect(() => {
+        setLoading(true);
+
         const formData = new FormData();
         formData.append("audio", audioFile);
 
@@ -86,6 +91,7 @@ function App() {
                                 )
                                     .then(() => {
                                         setImageUrls(urls);
+                                        setLoading(false);
                                         resolve();
                                     })
                                     .catch(() => {
@@ -103,15 +109,33 @@ function App() {
                 });
             };
 
-            validateZipFile().catch((error) => console.log(error));
+            validateZipFile().catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
         }
     }, [zipFile]);
 
     return (
         <Container>
+            {isLoading && (
+                <Bars
+                    height="60"
+                    width="60"
+                    color="#214cc2"
+                    ariaLabel="bars-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                />
+            )}
             {imageUrls && <Images imageUrls={imageUrls} />}
             <UploadFiles handleOnChange={handleOnChange} />
-            {audioFile && <Text $fontStyle="italic" $color="#e34f42">Selected File: {audioFile.name}</Text>}
+            {audioFile && (
+                <Text $fontStyle="italic" $color="#e34f42">
+                    Selected File: {audioFile.name}
+                </Text>
+            )}
         </Container>
     );
 }
