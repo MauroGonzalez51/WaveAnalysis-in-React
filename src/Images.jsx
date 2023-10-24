@@ -16,6 +16,15 @@ const Img = styled(motion.img)`
     border: 1px solid #c3c3c3;
 `;
 
+/**
+ * A React functional component that implements a drag and drop file upload feature.
+ * 
+ * @module DragDropFiles
+ * @param {Object} props - The component props.
+ * @param {Function} props.handleOnChange - A function that handles the file change event and takes the selected file as an argument.
+ * @returns {JSX.Element} The rendered component.
+ */
+
 function Images({ imageUrls }) {
     const handleDownload = (imageUrl) => {
         const a = document.createElement("a");
