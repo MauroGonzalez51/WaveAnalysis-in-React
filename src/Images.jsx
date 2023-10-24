@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
@@ -9,7 +10,7 @@ const Container = styled.div`
     gap: 1rem;
 `;
 
-const Img = styled.img`
+const Img = styled(motion.img)`
     width: 100%;
     height: auto;
     border: 1px solid #c3c3c3;
@@ -32,10 +33,14 @@ function Images({ imageUrls }) {
         <Container>
             {imageUrls.map((imageUrl, index) => (
                 <Img
-                    key={index}
+                    key={imageUrl}
                     src={imageUrl}
                     alt={`Image ${index}`}
                     onClick={() => handleDownload(imageUrl)}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 1 }}
                 />
             ))}
         </Container>

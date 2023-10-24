@@ -5,7 +5,7 @@ import JSZip from "jszip";
 import Images from "./Images";
 import UploadFiles from "./UploadFiles";
 
-const NGROK_URL = "http://7cf2-35-231-32-56.ngrok.io";
+const NGROK_URL = "http://e6fc-35-222-80-119.ngrok.io";
 
 const Container = styled.div`
     margin: 2rem 3rem;
@@ -39,7 +39,7 @@ function App() {
     const handleOnChange = (file) => setAudioFile(file);
 
     useEffect(() => {
-        setLoading(true);
+        if (audioFile) setLoading(true);
 
         const formData = new FormData();
         formData.append("audio", audioFile);
