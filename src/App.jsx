@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Bars } from "react-loader-spinner";
+import { Hourglass } from "react-loader-spinner";
 import styled from "styled-components";
 import JSZip from "jszip";
 import Images from "./Images";
 import UploadFiles from "./UploadFiles";
 
-const NGROK_URL = "http://e6fc-35-222-80-119.ngrok.io";
+const NGROK_URL = "http://715d-35-185-138-88.ngrok.io";
 
 const Container = styled.div`
     margin: 2rem 3rem;
@@ -118,18 +118,18 @@ function App() {
 
     return (
         <Container>
+            {imageUrls && <Images imageUrls={imageUrls} />}
             {isLoading && (
-                <Bars
+                <Hourglass
+                    visible={true}
                     height="60"
                     width="60"
-                    color="#214cc2"
-                    ariaLabel="bars-loading"
+                    ariaLabel="hourglass-loading"
                     wrapperStyle={{}}
                     wrapperClass=""
-                    visible={true}
+                    colors={["#214cc2", "#72a1ed"]}
                 />
             )}
-            {imageUrls && <Images imageUrls={imageUrls} />}
             <UploadFiles handleOnChange={handleOnChange} />
             {audioFile && (
                 <Text $fontStyle="italic" $color="#e34f42">
