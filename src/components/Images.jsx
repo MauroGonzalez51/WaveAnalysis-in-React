@@ -2,14 +2,6 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-const Container = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-`;
-
 const Img = styled(motion.img)`
     width: 100%;
     height: auto;
@@ -18,7 +10,7 @@ const Img = styled(motion.img)`
 
 /**
  * A React functional component that implements a drag and drop file upload feature.
- * 
+ *
  * @module DragDropFiles
  * @param {Object} props - The component props.
  * @param {Function} props.handleOnChange - A function that handles the file change event and takes the selected file as an argument.
@@ -39,7 +31,7 @@ function Images({ imageUrls }) {
     };
 
     return (
-        <Container>
+        <div className="flex justify-center items-center flex-col gap-4">
             {imageUrls.map((imageUrl, index) => (
                 <Img
                     key={imageUrl}
@@ -52,7 +44,7 @@ function Images({ imageUrls }) {
                     transition={{ duration: 1 }}
                 />
             ))}
-        </Container>
+        </div>
     );
 }
 

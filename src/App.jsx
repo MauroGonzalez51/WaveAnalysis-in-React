@@ -1,26 +1,10 @@
 import { useState, useEffect } from "react";
 import { Hourglass } from "react-loader-spinner";
-import styled from "styled-components";
 import JSZip from "jszip";
-import Images from "./Images";
-import UploadFiles from "./UploadFiles";
+import Images from "@components/Images";
+import UploadFiles from "@components/UploadFiles";
 
-const NGROK_URL = "http://715d-35-185-138-88.ngrok.io";
-
-const Container = styled.div`
-    margin: 2rem 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1rem;
-`;
-
-const Text = styled.span`
-    font-size: ${(props) => props.$fontSize || "1rem"};
-    color: ${(props) => props.$color || "#000000"};
-    font-style: ${(props) => props.$fontStyle || "normal"};
-`;
+const NGROK_URL = "http://d4bc-34-134-173-95.ngrok.io";
 
 /**
  * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
@@ -117,7 +101,7 @@ function App() {
     }, [zipFile]);
 
     return (
-        <Container>
+        <div className="flex justify-center items-center flex-col m-12 gap-6">
             {imageUrls && <Images imageUrls={imageUrls} />}
             {isLoading && (
                 <Hourglass
@@ -132,11 +116,11 @@ function App() {
             )}
             <UploadFiles handleOnChange={handleOnChange} />
             {audioFile && (
-                <Text $fontStyle="italic" $color="#e34f42">
+                <span className="italic text-red-500 text-base">
                     Selected File: {audioFile.name}
-                </Text>
+                </span>
             )}
-        </Container>
+        </div>
     );
 }
 
