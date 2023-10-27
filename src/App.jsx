@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Hourglass } from "react-loader-spinner";
+import { motion, AnimatePresence } from "framer-motion";
 import JSZip from "jszip";
 import Images from "@components/Images";
 import UploadFiles from "@components/UploadFiles";
 
-const NGROK_URL = "http://d4bc-34-134-173-95.ngrok.io";
+const NGROK_URL = "http://ad6b-34-42-246-176.ngrok.io";
 
 /**
  * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
@@ -33,6 +34,8 @@ function App() {
         const timeoutID = setTimeout(() => {
             abortController.abort();
         }, 120000);
+
+        setImageUrls([]);
 
         fetch(`${NGROK_URL}/analyze`, {
             method: "POST",
@@ -102,24 +105,38 @@ function App() {
 
     return (
         <div className="flex justify-center items-center flex-col m-12 gap-6">
-            {imageUrls && <Images imageUrls={imageUrls} />}
             {isLoading && (
-                <Hourglass
-                    visible={true}
-                    height="60"
-                    width="60"
-                    ariaLabel="hourglass-loading"
-                    wrapperStyle={{}}
-                    wrapperClass=""
-                    colors={["#214cc2", "#72a1ed"]}
-                />
+                <AnimatePresence>
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <Hourglass
+                            visible={true}
+                            height="60"
+                            width="60"
+                            ariaLabel="hourglass-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                            colors={["#214cc2", "#72a1ed"]}
+                        />
+                    </motion.div>
+                </AnimatePresence>
             )}
             <UploadFiles handleOnChange={handleOnChange} />
             {audioFile && (
-                <span className="italic text-red-500 text-base">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                    className="italic text-red-500 text-base"
+                >
                     Selected File: {audioFile.name}
-                </span>
+                </motion.div>
             )}
+            {imageUrls && <Images imageUrls={imageUrls} />}
         </div>
     );
 }

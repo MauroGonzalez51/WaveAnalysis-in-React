@@ -1,12 +1,5 @@
-import { motion } from "framer-motion";
-import styled from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
 import PropTypes from "prop-types";
-
-const Img = styled(motion.img)`
-    width: 100%;
-    height: auto;
-    border: 1px solid #c3c3c3;
-`;
 
 /**
  * A React functional component that implements a drag and drop file upload feature.
@@ -33,16 +26,23 @@ function Images({ imageUrls }) {
     return (
         <div className="flex justify-center items-center flex-col gap-4">
             {imageUrls.map((imageUrl, index) => (
-                <Img
-                    key={imageUrl}
-                    src={imageUrl}
-                    alt={`Image ${index}`}
-                    onClick={() => handleDownload(imageUrl)}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 1 }}
-                />
+                <AnimatePresence key={imageUrl}>
+                    <motion.img
+                        key={imageUrl}
+                        src={imageUrl}
+                        alt={`Image ${index}`}
+                        onClick={() => handleDownload(imageUrl)}
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.5 }}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.9 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        className="object-contain border-2 border-solid border-b-black"
+                    />
+                </AnimatePresence>
             ))}
         </div>
     );
