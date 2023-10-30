@@ -5,7 +5,7 @@ import JSZip from "jszip";
 import Images from "@components/Images";
 import UploadFiles from "@components/UploadFiles";
 
-const NGROK_URL = "http://ad6b-34-42-246-176.ngrok.io";
+const NGROK_URL = "http://2a82-34-172-1-13.ngrok.io";
 
 /**
  * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
@@ -20,8 +20,6 @@ function App() {
     const [imageUrls, setImageUrls] = useState([]);
 
     const [isLoading, setLoading] = useState(false);
-
-    const handleOnChange = (file) => setAudioFile(file);
 
     useEffect(() => {
         if (audioFile) setLoading(true);
@@ -125,7 +123,7 @@ function App() {
                     </motion.div>
                 </AnimatePresence>
             )}
-            <UploadFiles handleOnChange={handleOnChange} />
+            <UploadFiles setAudioFile={setAudioFile} />
             {audioFile && (
                 <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}

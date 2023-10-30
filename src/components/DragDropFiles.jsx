@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import PropTypes from "prop-types";
 
-function DragDropFiles({ handleOnChange }) {
+function DragDropFiles({ setAudioFile }) {
     const inputRef = useRef();
 
     const handleDragOver = (event) => {
@@ -10,7 +10,7 @@ function DragDropFiles({ handleOnChange }) {
 
     const handleDrop = (event) => {
         event.preventDefault();
-        handleOnChange(event.dataTransfer.files[0]);
+        setAudioFile(event.dataTransfer.files[0]);
     };
 
     return (
@@ -26,7 +26,7 @@ function DragDropFiles({ handleOnChange }) {
             <input
                 type="file"
                 onChange={(event) => {
-                    handleOnChange(event.target.files[0]);
+                    setAudioFile(event.target.files[0]);
                 }}
                 hidden
                 ref={inputRef}
@@ -42,7 +42,7 @@ function DragDropFiles({ handleOnChange }) {
 }
 
 DragDropFiles.propTypes = {
-    handleOnChange: PropTypes.func.isRequired,
+    setAudioFile: PropTypes.func.isRequired,
 };
 
 export default DragDropFiles;

@@ -24,7 +24,7 @@ function Images({ imageUrls }) {
     };
 
     return (
-        <div className="flex justify-center items-center flex-col gap-4">
+        <div className="flex justify-center items-center flex-col gap-4 mt-[5rem]">
             {imageUrls.map((imageUrl, index) => (
                 <AnimatePresence key={imageUrl}>
                     <motion.img
