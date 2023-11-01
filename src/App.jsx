@@ -5,7 +5,7 @@ import JSZip from "jszip";
 import Images from "@components/Images";
 import UploadFiles from "@components/UploadFiles";
 
-const NGROK_URL = "http://2a82-34-172-1-13.ngrok.io";
+const NGROK_URL = "http://25dc-35-222-16-179.ngrok.io";
 
 /**
  * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
@@ -46,7 +46,10 @@ function App() {
                 return response.blob();
             })
             .then((response) => setZipFile(response))
-            .catch((error) => console.error(error));
+            .catch((error) => {
+                setLoading(false);
+                console.log(error);
+            });
     }, [audioFile]);
 
     useEffect(() => {
@@ -76,7 +79,6 @@ function App() {
                                 )
                                     .then(() => {
                                         setImageUrls(urls);
-                                        setLoading(false);
                                         resolve();
                                     })
                                     .catch(() => {
@@ -94,10 +96,11 @@ function App() {
                 });
             };
 
-            validateZipFile().catch((error) => {
-                console.log(error);
-                setLoading(false);
-            });
+            validateZipFile()
+                .catch((error) => {
+                    console.log(error);
+                })
+                .finally(() => setLoading(false));
         }
     }, [zipFile]);
 
