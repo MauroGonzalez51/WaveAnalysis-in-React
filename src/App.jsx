@@ -4,8 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import JSZip from "jszip";
 import Images from "@components/Images";
 import UploadFiles from "@components/UploadFiles";
-
-const NGROK_URL = "http://25dc-35-222-16-179.ngrok.io";
+import { NGROK_URL } from "./constants";
 
 /**
  * React functional component that manages the state of an audio file, a zip file, and an array of image URLs.
